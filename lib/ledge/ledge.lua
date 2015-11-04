@@ -646,7 +646,9 @@ function _M.cache_key(self)
 
         local key_spec = self:config_get("cache_key_spec") or {
             ngx_var.scheme,
-            ngx_var.host,
+            self:config_get("upstream_host"),
+            ":",
+            self:config_get("upstream_port"),
             ngx_var.uri,
             args,
         }
