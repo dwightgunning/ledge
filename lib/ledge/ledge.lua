@@ -2257,6 +2257,8 @@ function _M.fetch_from_origin(self)
     for k,v in pairs(ngx_req_get_headers()) do
         headers[k] = v
     end
+    -- Update the host header with that of the upstream host and port
+    headers["host"] = self:config_get("upstream_host"), ":", self:config_get("upstream_port")
 
     -- Advertise ESI surrogate capabilities
     if self:config_get("esi_enabled") then
